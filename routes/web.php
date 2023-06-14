@@ -1,6 +1,8 @@
 <?php
-
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ThemeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +25,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('users/data', [UserController::class, 'index'])->name('users.indexData');
+    Route::resource('users', UserController::class);
+    Route::get('themes/data', [ThemeController::class, 'index'])->name('themes.indexData');
+    Route::resource('themes', ThemeController::class);
+    Route::get('/home', [HomeController::class, 'index']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
