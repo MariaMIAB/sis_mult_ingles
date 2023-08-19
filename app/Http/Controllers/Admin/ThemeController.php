@@ -6,23 +6,28 @@ use App\Http\Controllers\Controller;
 use Yajra\Datatables\Datatables;
 use App\Http\Requests\Theme\StoreRequest;
 use App\Http\Requests\Theme\UpdateRequest;
+use Illuminate\Http\Request;
 use App\Models\Theme;
 
 class ThemeController extends Controller
 {
-    public function datatables()
-    {
-      
-
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-       
+        if ($request->ajax()) {
+            $themes = Theme::latest()->get();
+            return DataTables::of($themes)
+                ->addIndexColumn()
+                ->addColumn('btn', 'admin.themes.partials.btn')                   
+                ->rawColumns(['btn'])
+                ->make(true);
+        }
+
+        return view('admin.themes.index');
 
     }
 
@@ -33,7 +38,8 @@ class ThemeController extends Controller
      */
     public function create()
     {
-        
+        $theme = new Theme();
+        return view('admin.themes.create', compact('theme'));
     }
 
     /**
@@ -57,7 +63,8 @@ class ThemeController extends Controller
     // $theme->save();
     public function show(Theme $theme)
     {
-      
+        $theme = Theme::with('content')->find($theme->id);
+        return view('admin.themes.show', compact('theme'));
     }
 
     /**

@@ -15,7 +15,7 @@
             <a href="{{ route('themes.create') }}" class="btn btn-success">Crear nuevo</a>
         </div>
         <br>
-        <table id="table" class="table">
+        <table id="myTable" class="table">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -39,16 +39,15 @@
 <!-- jQuery DataTables JS -->
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
-
     <script>
 $(function () {
     var table = $('#myTable').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('users.indexData') }}",
+        ajax: "{{ route('themes.indexData') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'tema', name: 'tema'},
+            {data: 'theme_name', name: 'theme_name'},
             {data: 'btn', name: 'btn', orderable: false, searchable: false},
 
         ],

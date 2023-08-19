@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
 
@@ -16,23 +17,23 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-  
-        public function index(Request $request)
-        {
-            if ($request->ajax()) {
-                $users = User::latest()->get();
-                return DataTables::of($users)
-                    ->addIndexColumn()
-                    ->addColumn('btn', 'admin.users.partials.btn')
-                    ->addColumn('role', function ($user) {
-                        return $user->getRoleNames()->first();
-                    })                    
-                    ->rawColumns(['btn','role'])
-                    ->make(true);
-            }
 
-            return view('admin.users.index');
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $users = User::latest()->get();
+            return DataTables::of($users)
+                ->addIndexColumn()
+                ->addColumn('btn', 'admin.users.partials.btn')
+                ->addColumn('role', function ($user) {
+                    return $user->getRoleNames()->first();
+                })
+                ->rawColumns(['btn', 'role'])
+                ->make(true);
         }
+
+        return view('admin.users.index');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -47,7 +48,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(storeRequest $request,User $user)
+    public function store(storeRequest $request, User $user)
     {
         $user = (new User)->fill($request->validated());
         if ($request->filled('role')) {
@@ -64,16 +65,15 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show( User $user)
+    public function show(User $user)
     {
         return view('admin.users.show', compact('user'));
-        
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user )
+    public function edit(User $user)
     {
         $roles = Role::get();
         return view('admin.users.edit', compact('user', 'roles'));
@@ -82,6 +82,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(UpdateRequest $request, User $user)
     {
         $validatedData = $request->validated();
@@ -90,9 +91,21 @@ class UserController extends Controller
         if ($currentRole != $newRole) {
             $user->syncRoles([$newRole]);
         }
+
+        if ($request->hasFile('profile_picture')) {
+            $user->profile_picture = $request->file('profile_picture')->store('public/imagenes/perfiles/');
+            //dd("imagen de perfil", $request);
+            $oldImagePath = $user->profile_picture;
+            if (Storage::exists($oldImagePath)) {
+                Storage::delete($oldImagePath);
+            }
+            $validatedData['profile_picture'] = $request->file('profile_picture')->store('public/imagenes/perfiles/');
+        }
+
         $user->update($validatedData);
         return redirect()->route('users.index');
     }
+
     /**
      * Remove the specified resource from storage.
      */

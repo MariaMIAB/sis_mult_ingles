@@ -33,9 +33,9 @@
         <label for="roles">Rol</label>
         <select name="role" class="custom-select">
             @foreach ($roles as $role)
-            <option value="{{ $role->name }}" {{ $user->roles->contains($role->id) ? 'selected' : '' }}>
-                {{ $role->name }}
-            </option>
+                <option value="{{ $role->name }}" {{ $user->roles->contains($role->id) ? 'selected' : '' }}>
+                    {{ $role->name }}
+                </option>
             @endforeach
         </select>
     </div>
@@ -73,10 +73,11 @@
             <input type="file" name="profile_picture" class="custom-file-input" id="profile_picture" accept="image/*"
                 onchange="previewFile()" style="display: none;">
             <div>
-                <img id="preview"
-                    src="{{ $user->profile_picture ? Storage::url(Auth::user()->profile_picture) : '/storage/imagenes/pf-picture.webp' }}"
-                    onerror="this.src='/storage/imagenes/pf-picture.webp'" height="100" alt="Vista previa de la imagen"
-                    onclick="triggerFileInput()">
+                <img class="imgbord" id="preview"
+                    src="{{ $user->profile_picture ? Storage::url($user->profile_picture) : '/storage/imagenes/avatar.gif' }}"
+                    onerror="this.src='/storage/imagenes/User_default.png'" height="100"
+                    alt="Vista previa de la imagen" onclick="triggerFileInput()">
+
             </div>
         </div>
         @error('profile_picture')
