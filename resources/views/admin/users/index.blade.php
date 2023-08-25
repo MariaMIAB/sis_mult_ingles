@@ -3,7 +3,7 @@
 @section('title', 'Usuarios')
 
 @section('content_header')
-    <h1>Lista de Usuarios</h1>
+    <h1 class="text-center">Lista de Usuarios</h1>
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@
         <div class="card-body">
             <a href="{{ route('users.create') }}" class="btn btn-success">Crear Nuevo Usuario</a>
             <br><br>
-            <table id="myTable" class="table table-striped">
+            <table id="myTable" class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#Id</th>
@@ -51,7 +51,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js">
     </script>
 
-
+    <!-- Tablas -->
     <script>
         $(function() {
             var table = $('#myTable').DataTable({
@@ -102,7 +102,6 @@
                         previous: '<<'
                     }
                 },
-
             });
         });
     </script>

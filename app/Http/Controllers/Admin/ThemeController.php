@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Yajra\Datatables\Datatables;
 use App\Http\Requests\Theme\StoreRequest;
 use App\Http\Requests\Theme\UpdateRequest;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Models\Theme;
 
@@ -22,13 +24,12 @@ class ThemeController extends Controller
             $themes = Theme::latest()->get();
             return DataTables::of($themes)
                 ->addIndexColumn()
-                ->addColumn('btn', 'admin.themes.partials.btn')                   
+                ->addColumn('btn', 'admin.themes.partials.btn')
                 ->rawColumns(['btn'])
                 ->make(true);
         }
 
         return view('admin.themes.index');
-
     }
 
     /**
@@ -48,9 +49,15 @@ class ThemeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request, Theme $theme)
     {
-        
+        $theme = (new Theme)->fill($request->validated());
+
+        if ($request->hasFile('theme_image')) {
+            $theme->theme_image = $request->file('theme_image')->store('public/imagenes/temas/');
+        }
+        $theme->save();
+        return redirect()->route('themes.index');
     }
 
     /**
@@ -59,8 +66,7 @@ class ThemeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // $theme->visitas = $theme->visitas + 1;
-    // $theme->save();
+
     public function show(Theme $theme)
     {
         $theme = Theme::with('content')->find($theme->id);
@@ -75,7 +81,7 @@ class ThemeController extends Controller
      */
     public function edit(Theme $theme)
     {
-        
+        return view('admin.themes.edit', compact('theme'));
     }
 
     /**
@@ -87,8 +93,18 @@ class ThemeController extends Controller
      */
     public function update(UpdateRequest $request, Theme $theme)
     {
-        
+        $validatedData = $request->validated();
+        if ($request->hasFile('theme_image')) {
+            if ($theme->theme_image) {
+                Storage::delete($theme->theme_image);
+            }
+            $theme->theme_image = $request->file('theme_image')->store('public/imagenes/temas/');
+        }
+        $validatedData = Arr::except($validatedData, ['theme_image']);
+        $theme->update($validatedData);
+        return redirect()->route('themes.index');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -98,6 +114,7 @@ class ThemeController extends Controller
      */
     public function destroy(Theme $theme)
     {
-       
+        $theme->delete();
+        return redirect()->route('themes.index')->with('eliminar', 'ok');
     }
 }

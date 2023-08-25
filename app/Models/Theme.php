@@ -8,16 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Theme extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'theme_name',
         'theme_image',
-        
+        'description',
+
     ];
     public function theme_user()
     {
         return $this->hasMany(Theme_User::class);
     }
-
     public function activity()
     {
         return $this->hasMany(Activity::class);
@@ -34,6 +35,4 @@ class Theme extends Model
     {
         return $this->hasMany(Test::class);
     }
-
 }
-

@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Content extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'theme_id',
         'content_name',
         'content_text',
         'content_image',
     ];
+
     public function themes()
     {
         return $this->belongsTo(Theme::class);

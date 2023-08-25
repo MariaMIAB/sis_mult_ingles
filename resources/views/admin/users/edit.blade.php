@@ -1,14 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Usuario')
+@section('title', 'Usuarios')
 
 @section('content_header')
-    <h1>Editar Usuario</h1>
+    <h1 class="text-center">Editar Usuario</h1>
 @stop
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h2>Datos del Usuario</h2>
             <form method="POST" action="{{ route('users.update', $user) }} " enctype="multipart/form-data">
                 @csrf
                 @method('put')
@@ -32,6 +31,10 @@
         .imgbord {
             border-radius: 15px;
             box-shadow: 10px 10px 5px grey;
+        }
+
+        .ck-editor__editable_inline {
+            min-height: 150px;
         }
     </style>
 @stop

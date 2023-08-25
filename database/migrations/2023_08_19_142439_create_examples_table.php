@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('theme__users', function (Blueprint $table) {
+        Schema::create('examples', function (Blueprint $table) {
             $table->id();
-            $table->integer('visits')->nullable();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('theme_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->text('example_text', 2000)->nullable();
+            $table->string('example_image')->nullable();
+            $table->foreignId('content_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('theme__users');
+        Schema::dropIfExists('examples');
     }
 };

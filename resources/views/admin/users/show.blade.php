@@ -1,8 +1,11 @@
 @extends('adminlte::page')
-@section('title', 'Dashboard')
+
+@section('title', 'Usuarios')
+
 @section('content_header')
-    <h1>Usuarios</h1>
+    <h1 class="text-center">Datos del Usuario</h1>
 @stop
+
 @section('content')
     <div class="card">
         <div class="card-body">
@@ -35,6 +38,7 @@
         </div>
     </div>
 @stop
+
 @section('css')
     <style>
         .imgbord {

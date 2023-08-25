@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Usuarios')
 
 @section('content_header')
-    <h1>Crear nuevo usuario</h1>
+    <h1 class="text-center">Crear nuevo usuario</h1>
 @stop
 
 @section('content')

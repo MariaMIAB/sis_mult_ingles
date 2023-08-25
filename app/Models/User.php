@@ -46,19 +46,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    
+
     public function adminlte_image()
     {
-        return Storage::url($this->profile_picture);
+        if ($this->profile_picture) {
+            return Storage::url($this->profile_picture);
+        } else {
+            return '\storage\imagenes\User_default.png';
+        }
     }
+
     public function adminlte_desc()
     {
         return $this->getRoleNames()->first();
     }
-      
-    public function test_user()
+
+    public function test_note()
     {
-        return $this->hasMany(Test_User::class);
+        return $this->hasMany(Test_note::class);
     }
 
     public function theme_user()

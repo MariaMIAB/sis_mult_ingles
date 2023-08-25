@@ -22,14 +22,13 @@ class UserSeeder extends Seeder
             'surname' => 'Alvarez Barriga',
             'email' => 'maria1122@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('123456789'),
-      //    'avatar' => ('public/imagenes/imgavatars//ejem.jpg'),
+            'password' => Hash::make('12345678'),
             'remember_token' => Str::random(10),
         ])->assignRole('Administrador');
 
-        //crea 50 usuarios
-        /*User::factory()->count(25)->create()->each(function (User $user) {
-            $user->assignRole('Usuario');
-        });*/
+        //crea 10 usuarios
+        User::factory()->count(10)->create()->each(function (User $user) {
+            $user->assignRole('Estudiante');
+        });
     }
 }

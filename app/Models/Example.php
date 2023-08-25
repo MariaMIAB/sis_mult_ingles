@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Example extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'content_id',
-        'text_exam',
-        'image_exam',
+        'example_text',
+        'example_image',
     ];
+
     public function contents()
     {
         return $this->belongsTo(Content::class);

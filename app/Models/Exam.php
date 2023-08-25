@@ -5,17 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Activity extends Model
+class Exam extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'theme_id',
-        'name_activity',
+        'exam_name',
         'description',
-        'link_activity',
     ];
-    public function themes()
+
+    public function test_note()
     {
-        return $this->belongsTo(Theme::class);
+        return $this->hasMany(Test_notes::class);
+    }
+    public function question()
+    {
+        return $this->hasMany(Question::class);
     }
 }

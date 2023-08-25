@@ -23,6 +23,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'theme_name' => 'required|max:255',
+            'description' => 'required|string',
             'theme_image' => 'dimensions:min_width=200,max_width=500,min_height=200,max_height=500',
         ];
     }

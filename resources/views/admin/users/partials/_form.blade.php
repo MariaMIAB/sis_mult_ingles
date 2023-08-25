@@ -72,13 +72,10 @@
         <div class="custom-file">
             <input type="file" name="profile_picture" class="custom-file-input" id="profile_picture" accept="image/*"
                 onchange="previewFile()" style="display: none;">
-            <div>
-                <img class="imgbord" id="preview"
-                    src="{{ $user->profile_picture ? Storage::url($user->profile_picture) : '/storage/imagenes/avatar.gif' }}"
-                    onerror="this.src='/storage/imagenes/User_default.png'" height="100"
-                    alt="Vista previa de la imagen" onclick="triggerFileInput()">
-
-            </div>
+            <img class="imgbord" id="preview"
+                src="{{ $user->profile_picture ? Storage::url($user->profile_picture) : '/storage/imagenes/avatar.gif' }}"
+                onerror="this.src='/storage/imagenes/User_default.png'" height="100" alt="Vista previa de la imagen"
+                onclick="triggerFileInput()">
         </div>
         @error('profile_picture')
             <span class="invalid-feedback d-block" role="alert">

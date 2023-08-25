@@ -22,8 +22,8 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'theme_name' => 'required|max:255',
-            'theme_image' => 'dimensions:min_width=200,max_width=500,min_height=200,max_height=500',
+            'theme_name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
         ];
     }
 }

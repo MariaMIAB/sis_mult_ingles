@@ -13,10 +13,7 @@
     .container {
         display: flex;
         justify-content: center;
-        /* Centra horizontalmente los elementos */
         align-items: center;
-        /* Centra verticalmente los elementos */
         gap: 20px;
-        /* Espacio entre los elementos */
     }
 </style>
