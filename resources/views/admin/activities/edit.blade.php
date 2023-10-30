@@ -1,22 +1,21 @@
 @extends('adminlte::page')
 
-@section('title', 'Usuarios')
+@section('title', 'Actividades')
 
 @section('content_header')
-    <h1 class="text-center">Editar Usuario</h1>
+    <h1 class="text-center">Editar Actividades</h1>
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form method="POST" action="{{ route('users.update', $user) }} " enctype="multipart/form-data">
+            <form method="POST" action="{{ route('activities.update', $activity) }} " enctype="multipart/form-data">
                 @csrf
                 @method('put')
-                @include('admin.users.partials._form')
+                @include('admin.activities.partials._form')
                 <br><br>
                 <div>
-                    <a class="btn btn-secondary" href="{{ route('login') }}">Ya registrado?</a>
-                    <button class="vrd btn btn-success" type="submit">Registrar</button>
+                    <button class="vrd btn btn-success" type="submit">Guardar</button>
                 </div>
             </form>
         </div>

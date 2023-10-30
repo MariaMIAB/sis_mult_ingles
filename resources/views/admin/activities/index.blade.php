@@ -3,21 +3,22 @@
 @section('title', 'Temas')
 
 @section('content_header')
-    <h1 class="text-center">Lista de Temas</h1>
+    <h1 class="text-center">Lista de Actividades</h1>
 @stop
+
 
 @section('content')
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
-                <a href="{{ route('themes.create') }}" class="btn btn-success">Crear Nuevo Tema</a>
+                <a href="{{ route('activities.create') }}" class="btn btn-success">Crear Nuevo Tema</a>
             </div>
             <br>
             <table id="myTable" class="table">
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Temas</th>
+                        <th>Nombre de la Actividad</th>
                         <th>Opciones</th>
                     </tr>
                 </thead>
@@ -63,14 +64,14 @@
             var table = $('#myTable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('themes.indexData') }}",
+                ajax: "{{ route('activities.indexData') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
                     {
-                        data: 'theme_name',
-                        name: 'theme_name'
+                        data: 'activity_name',
+                        name: 'activity_name'
                     },
                     {
                         data: 'btn',

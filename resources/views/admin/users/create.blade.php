@@ -3,13 +3,12 @@
 @section('title', 'Usuarios')
 
 @section('content_header')
-    <h1 class="text-center">Crear nuevo usuario</h1>
+    <h1 class="text-center">Registrar Usuario</h1>
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h3 class="text-center my-3">Registrar usuario</h3>
             <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div>

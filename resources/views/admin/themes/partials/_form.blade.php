@@ -15,10 +15,10 @@
         @enderror
     </div>
     <div class="form-group col-6">
-        <label for="theme_image">Imagen de Perfil</label>
+        <label for="theme_image">Imagen del Tema</label>
         <div class="custom-file">
             <input type="file" name="theme_image" class="custom-file-input hidden" id="theme_image" accept="image/*"
-                onchange="previewFile()">
+                onchange="previewFile()" style="position: absolute;">
             <img class="imgbord" id="preview"
                 src="{{ $theme->theme_image ? Storage::url($theme->theme_image) : '/storage/imagenes/multimedia_default.png' }}"
                 onerror="this.src='/storage/imagenes/error.png'" height="100"

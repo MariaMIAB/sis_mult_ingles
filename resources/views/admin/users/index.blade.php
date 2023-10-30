@@ -51,6 +51,17 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js">
     </script>
 
+    <!-- Sweetaler -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('eliminar') == 'ok')
+        <script>
+            Swal.fire(
+                '¡Eliminado!',
+                'EL registro ha sido eliminado.',
+                'success'
+            )
+        </script>
+    @endif
     <!-- Tablas -->
     <script>
         $(function() {

@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\UserController;
@@ -20,10 +21,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/w2', function () {
+    return view('welcome2');
+});
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -33,9 +38,14 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
     Route::get('themes/data', [ThemeController::class, 'index'])->name('themes.indexData');
     Route::resource('themes', ThemeController::class);
-    //--------
     Route::resource('contents', ContentController::class);
-    Route::resource('activitys', ActivityController::class);
+    Route::get('themes/{id}/contents', [ThemeController::class, 'show'])->name('themes.showContents');
+    Route::get('themes/{id}/contents/create', [ContentController::class, 'create'])->name('contents.create');
+    Route::get('activities/data', [ActivityController::class, 'index'])->name('activities.indexData');
+    Route::resource('activities', ActivityController::class);
+    //--------
+
+
     Route::resource('tests', TestController::class);
     Route::resource('media', MediaController::class);
     //---------
@@ -45,4 +55,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

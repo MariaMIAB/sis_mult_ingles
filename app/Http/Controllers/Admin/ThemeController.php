@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Models\Theme;
+use App\Models\Content;
 
 class ThemeController extends Controller
 {
@@ -67,11 +68,21 @@ class ThemeController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function show(Theme $theme)
+    public function show($id, Request $request)
     {
-        $theme = Theme::with('content')->find($theme->id);
+        $theme = Theme::find($id);
+        if ($request->ajax()) {
+            $content = Content::where('theme_id', $id)->get();
+            return DataTables::of($content)
+                ->addIndexColumn()
+                ->addColumn('btn', 'admin.contents.partials.btn')
+                ->rawColumns(['btn'])
+                ->make(true);
+        }
+
         return view('admin.themes.show', compact('theme'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

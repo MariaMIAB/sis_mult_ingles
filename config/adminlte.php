@@ -318,19 +318,24 @@ return [
             'icon' => 'fas fa-fw fa-book',
         ],
         [
-            'text' => 'Contenidos',
-            'route'  => 'contents.index',
-            'icon' => 'fas fa-fw fa-book',
+            'text' => 'Actividades',
+            'route'  => 'activities.index',
+            'icon' => 'fas fa-fw fa-tasks',
         ],
         [
-            'text' => 'Actividades',
-            'route'  => 'activitys.index',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'Herramientas',
+            'route'  => 'tests.index',
+            'icon' => 'fas fa-fw fa-wrench',
         ],
         [
             'text' => 'Examenes',
             'route'  => 'tests.index',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-clipboard-check',
+        ],
+        [
+            'text' => 'Juegos',
+            'route'  => 'tests.index',
+            'icon' => 'fas fa-fw fa-gamepad',
         ],
     ],
 

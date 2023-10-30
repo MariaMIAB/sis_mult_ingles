@@ -1,18 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', 'Temas')
+@section('title', 'Contenidos')
 
 @section('content_header')
-    <h1 class="text-center">Registrar Tema</h1>
+    <h1 class="text-center">Nuevo Contenido</h1>
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form method="POST" action="{{ route('themes.store') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('contents.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div>
-                    @include('admin.themes.partials._form')
+                    @include('admin.contents.partials._form')
                     <br>
                 </div>
                 <div style="margin-top: 10px;">
@@ -34,6 +34,10 @@
             box-shadow: 10px 10px 5px grey;
         }
 
+        .hidden {
+            display: none;
+        }
+
         .ck-editor__editable_inline {
             min-height: 150px;
         }
@@ -43,31 +47,29 @@
 @section('js')
     <script>
         function previewFile() {
-            var preview = document.querySelector('#preview');
-            var file = document.querySelector('#theme_image').files[0];
-            var reader = new FileReader();
+            const preview = document.querySelector('#preview');
+            const file = document.querySelector('#content_image').files[0];
+            console.log('archivo', file)
+            const reader = new FileReader();
 
-            reader.onloadend = function() {
+            reader.addEventListener("load", function() {
                 preview.src = reader.result;
-            }
+            }, false);
 
             if (file) {
                 reader.readAsDataURL(file);
-            } else {
-                preview.src = "";
             }
         }
 
-
         function triggerFileInput() {
-            document.getElementById('theme_image').click();
+            document.getElementById('content_image').click();
         }
     </script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/ckeditor.js"></script>
+    <script script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/ckeditor.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/translations/es.js"></script>
     <script>
         ClassicEditor
-            .create(document.querySelector('#description'), {
+            .create(document.querySelector('#content_text'), {
                 language: 'es'
             })
             .then(editor => {
